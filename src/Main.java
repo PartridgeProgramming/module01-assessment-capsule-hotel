@@ -20,8 +20,6 @@ public class Main {
             printGuestMenu();
             getUserResponseGuestMenu();
         }
-
-
     }
     public static void printDivider(int dividerNumber) {
         for (int i = 0; i < dividerNumber; i++) {
@@ -37,6 +35,11 @@ public class Main {
         System.out.println("3. View Guests");
         System.out.println("4. Exit");
     }
+    public static String getGuestName() {
+        Scanner user = new Scanner(System.in);
+        System.out.print("Guest Name: ");
+        return user.nextLine();
+    }
     public static int getCapsuleNumber() {
         Scanner user = new Scanner(System.in);
         System.out.print("Capsule #[1-" + hotelGuests.length + "]: ");
@@ -48,10 +51,10 @@ public class Main {
 
         switch (Integer.parseInt(user.nextLine())) {
             case 1:
-                // check in
+                checkIn();
                 break;
             case 2:
-                // check out
+                checkOut();
                 break;
             case 3:
                 viewGuests(getCapsuleNumber());
@@ -64,10 +67,22 @@ public class Main {
         }
     }
     public static void checkIn() {
-
+        int cap = getCapsuleNumber();
+        String guest = getGuestName();
+        if (!hotelGuests[cap].equals("[unoccupied]")) {
+            System.out.println("ERROR: Capsule #" + cap + " is already occupied!");
+        } else {
+            hotelGuests[cap] = guest;
+        }
     }
     public static void checkOut() {
-
+        int cap = getCapsuleNumber();
+        if (hotelGuests[cap].equals("[unoccupied]")) {
+            hotelGuests[cap] = "[unoccupied]";
+            System.out.println("Capsule #" + cap + " is now [unoccupied].");
+        } else {
+            System.out.println("ERROR: Capsule #" + cap + " is already [unoccupied]!");
+        }
     }
     public static void viewGuests(int index) {
         if (index < 11) {
