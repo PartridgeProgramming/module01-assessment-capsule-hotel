@@ -13,7 +13,7 @@ public class Main {
         int capNum = Integer.parseInt(user.nextLine());
 
         hotelGuests = new String[capNum];
-        Arrays.fill(hotelGuests, "[unoccupied]");
+
         System.out.println("There are " + capNum + " unoccupied capsules ready to be booked.");
 
         while (true) {
@@ -69,35 +69,53 @@ public class Main {
     public static void checkIn() {
         int cap = getCapsuleNumber();
         String guest = getGuestName();
-        if (!hotelGuests[cap].equals("[unoccupied]")) {
+        if (!(hotelGuests[cap] == null)) {
             System.out.println("ERROR: Capsule #" + cap + " is already occupied!");
         } else {
-            hotelGuests[cap] = guest;
+            hotelGuests[cap-1] = guest;
+            System.out.println("Guest " + guest + " has been booked for capsule #" + cap);
         }
     }
     public static void checkOut() {
         int cap = getCapsuleNumber();
-        if (hotelGuests[cap].equals("[unoccupied]")) {
-            hotelGuests[cap] = "[unoccupied]";
+        if (!(hotelGuests[cap] == null)) {
+            hotelGuests[cap] = null;
             System.out.println("Capsule #" + cap + " is now [unoccupied].");
         } else {
             System.out.println("ERROR: Capsule #" + cap + " is already [unoccupied]!");
+
         }
     }
     public static void viewGuests(int index) {
+        String display;
         if (index < 11) {
             for (int i = 0; i < 11; i++) {
-                System.out.println(i+1 + ": " + hotelGuests[i]);
+                if (hotelGuests[i] == null) {
+                    display = "[unoccupied]";
+                } else {
+                    display = hotelGuests[i];
+                }
+                System.out.println(i+1 + ": " + display);
             }
         } else if (index > hotelGuests.length-11) {
             int j = -11, counter = hotelGuests.length+j;
             for (int i = hotelGuests.length-1; i > hotelGuests.length-12; i--) {
-                System.out.println(hotelGuests.length+j+1 + ": " + hotelGuests[counter]);
+                if (hotelGuests[counter] == null) {
+                    display = "[unoccupied]";
+                } else {
+                    display = hotelGuests[i];
+                }
+                System.out.println(hotelGuests.length+j+1 + ": " + display);
                 counter++; j++;
             }
         } else {
             for (int i = index-5; i < index+11; i++) {
-                System.out.println(i+1 + ": " + hotelGuests[i]);
+                if (hotelGuests[i] == null) {
+                    display = "[unoccupied]";
+                } else {
+                    display = hotelGuests[i];
+                }
+                System.out.println(i+1 + ": " + display);
             }
         }
     }
