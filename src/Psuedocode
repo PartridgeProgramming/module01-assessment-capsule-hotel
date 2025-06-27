@@ -1,0 +1,14 @@
+High Level Requirements
+
+The application user is the hotel administrator.
+
+    On start up, the application prompts the administrator for the hotel's capacity. The capacity determines how many capsules are available.
+    The administrator may book a guest in an unoccupied numbered capsule.
+    The administrator may check out a guest from an occupied capsule.
+    The administrator may view guests and their capsule numbers in groups of 10.
+
+Print greeting, ask admin for hotel capacity Program initializes array of the size the user gave. Print out the size of the array.
+Through an loop to ensure that the admin can keep using the program, display the guest menu.
+Guest menu is a method for readability, use a method to get admin's response and then execute code for the response.
+
+Exit is a simple goodbye message and using the system exit method to quit the application.

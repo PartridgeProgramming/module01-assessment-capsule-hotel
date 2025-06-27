@@ -1,15 +1,94 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import java.util.Arrays;
+import java.util.Scanner;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+public class Main {
+    static String[] hotelGuests;
+    public static void main(String[] args) {
+        Scanner user = new Scanner(System.in);
+
+        System.out.println("Welcome to Capsule-Capsule!");
+        printDivider(20);
+
+        System.out.print("Enter the number of capsules: ");
+        int capNum = Integer.parseInt(user.nextLine());
+
+        hotelGuests = new String[capNum];
+        Arrays.fill(hotelGuests, "[unoccupied]");
+        System.out.println("There are " + capNum + " unoccupied capsules ready to be booked.");
+
+        while (true) {
+            printGuestMenu();
+            getUserResponseGuestMenu();
+        }
+
+
+    }
+    public static void printDivider(int dividerNumber) {
+        for (int i = 0; i < dividerNumber; i++) {
+            System.out.print("=");
+        }
+        System.out.println();
+    }
+    public static void printGuestMenu() {
+        System.out.println("Guest Menu");
+        printDivider(10);
+        System.out.println("1. Check in");
+        System.out.println("2. Check out");
+        System.out.println("3. View Guests");
+        System.out.println("4. Exit");
+    }
+    public static int getCapsuleNumber() {
+        Scanner user = new Scanner(System.in);
+        System.out.print("Capsule #[1-" + hotelGuests.length + "]: ");
+        return Integer.parseInt(user.nextLine());
+    }
+    public static void getUserResponseGuestMenu() {
+        System.out.print("Chose [1-4]: ");
+        Scanner user = new Scanner(System.in);
+
+        switch (Integer.parseInt(user.nextLine())) {
+            case 1:
+                // check in
+                break;
+            case 2:
+                // check out
+                break;
+            case 3:
+                viewGuests(getCapsuleNumber());
+                break;
+            case 4:
+                systemExit();
+            default:
+                System.out.println("Please enter a number 1-4.");
+                printGuestMenu();
         }
     }
+    public static void checkIn() {
+
+    }
+    public static void checkOut() {
+
+    }
+    public static void viewGuests(int index) {
+        if (index < 11) {
+            for (int i = 0; i < 11; i++) {
+                System.out.println(i+1 + ": " + hotelGuests[i]);
+            }
+        } else if (index > hotelGuests.length-11) {
+            int j = -11, counter = hotelGuests.length+j;
+            for (int i = hotelGuests.length-1; i > hotelGuests.length-12; i--) {
+                System.out.println(hotelGuests.length+j+1 + ": " + hotelGuests[counter]);
+                counter++; j++;
+            }
+        } else {
+            for (int i = index-5; i < index+11; i++) {
+                System.out.println(i+1 + ": " + hotelGuests[i]);
+            }
+        }
+    }
+    public static void systemExit() {
+        System.out.println("Goodbye!");
+        System.exit(0);
+    }
+
 }
